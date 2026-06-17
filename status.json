@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-06-17T20:25:58Z",
+  "quota": {
+    "runs_used": 0,
+    "quota_limit": 15,
+    "resets_at": null
+  },
+  "projects": [
+    {
+      "project": "testapp",
+      "app_type": "web",
+      "status": "halted",
+      "locked": false,
+      "locked_by": null,
+      "completed": false,
+      "next_milestone": "M1",
+      "milestones_done": 0,
+      "has_error": false,
+      "last_error": null,
+      "last_updated": "2026-06-17T11:58:35Z"
+    }
+  ]
+}

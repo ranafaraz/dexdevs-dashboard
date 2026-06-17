@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEXDEVS Pipeline Status</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; font:14px/1.5 -apple-system,Segoe UI,Roboto,sans-serif; background:#0d1117; color:#e6edf3; padding:24px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  .muted { color:#8b949e; font-size:12px; }
+  .quota { margin:16px 0 24px; padding:12px 16px; background:#161b22; border:1px solid #30363d; border-radius:8px; }
+  .bar { height:8px; background:#30363d; border-radius:4px; overflow:hidden; margin-top:6px; }
+  .bar > span { display:block; height:100%; background:#2f81f7; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
+  .card { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:14px; }
+  .card h2 { font-size:15px; margin:0 0 8px; display:flex; justify-content:space-between; align-items:center; }
+  .pill { font-size:11px; padding:2px 8px; border-radius:999px; border:1px solid #30363d; }
+  .s-done,.s-completed { background:#1a4d2e; border-color:#238636; }
+  .s-in_progress { background:#3d2c00; border-color:#9e6a03; }
+  .s-halted,.s-pending { background:#21262d; }
+  .s-needs_human,.s-blocked_quota { background:#5a1e1e; border-color:#f85149; }
+  .row { display:flex; justify-content:space-between; padding:2px 0; }
+  .err { margin-top:8px; padding:8px; background:#2d1418; border:1px solid #f85149; border-radius:6px; color:#ffa198; font-size:12px; white-space:pre-wrap; }
+  .lock { color:#f0883e; }
+</style>
+</head>
+<body>
+<h1>DEXDEVS Pipeline Status</h1>
+<div class="muted" id="ts">loading...</div>
+<div class="quota" id="quota"></div>
+<div class="grid" id="grid"></div>
+<script>
+async function load() {
+  try {
+    const r = await fetch('./status.json?' + Date.now());
+    const d = await r.json();
+    document.getElementById('ts').textContent = 'Generated ' + d.generated_at;
+    const q = d.quota || {};
+    const pct = q.quota_limit ? Math.round((q.runs_used / q.quota_limit) * 100) : 0;
+    document.getElementById('quota').innerHTML =
+      '<strong>Quota</strong> ' + (q.runs_used ?? 0) + ' / ' + (q.quota_limit ?? 0) +
+      ' runs used' + (q.resets_at ? ' &middot; resets ' + q.resets_at : '') +
+      '<div class="bar"><span style="width:' + pct + '%"></span></div>';
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    for (const p of (d.projects || [])) {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML =
+        '<h2>' + p.project + ' <span class="pill s-' + p.status + '">' + p.status + '</span></h2>' +
+        '<div class="row"><span class="muted">type</span><span>' + p.app_type + '</span></div>' +
+        '<div class="row"><span class="muted">next</span><span>' + p.next_milestone + '</span></div>' +
+        '<div class="row"><span class="muted">milestones done</span><span>' + p.milestones_done + '</span></div>' +
+        '<div class="row"><span class="muted">completed</span><span>' + p.completed + '</span></div>' +
+        '<div class="row"><span class="muted">locked</span><span class="' + (p.locked ? 'lock' : '') + '">' + p.locked + (p.locked_by ? ' (' + p.locked_by + ')' : '') + '</span></div>' +
+        '<div class="row"><span class="muted">updated</span><span>' + (p.last_updated || '-') + '</span></div>' +
+        (p.has_error ? '<div class="err">' + (p.last_error || 'error') + '</div>' : '');
+      grid.appendChild(div);
+    }
+  } catch (e) {
+    document.getElementById('ts').textContent = 'Failed to load status.json: ' + e;
+  }
+}
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>
