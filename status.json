@@ -1,11 +1,24 @@
 {
-  "generated_at": "2026-06-17T20:57:54.346Z",
+  "generated_at": "2026-06-17T21:27:45.189Z",
   "quota": {
     "runs_used": 0,
     "quota_limit": 15,
     "resets_at": null
   },
   "projects": [
+    {
+      "project": "test-pipeline-app",
+      "app_type": "web",
+      "status": "pending",
+      "locked": false,
+      "locked_by": null,
+      "completed": false,
+      "next_milestone": "M1",
+      "milestones_done": 0,
+      "has_error": false,
+      "last_error": null,
+      "last_updated": "2026-06-18T00:00:00Z"
+    },
     {
       "project": "testapp",
       "app_type": "web",
