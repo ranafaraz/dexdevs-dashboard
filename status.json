@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-18T09:53:52.279Z",
+  "generated_at": "2026-06-18T10:12:36.306Z",
   "quota": {
     "runs_used": 0,
     "quota_limit": 15,
@@ -28,9 +28,9 @@
       "completed": false,
       "next_milestone": "M1",
       "milestones_done": 0,
-      "has_error": false,
-      "last_error": null,
-      "last_updated": "2026-06-17T11:58:35Z"
+      "has_error": true,
+      "last_error": "dispatch failed: TypeError: Failed to parse URL from [url]",
+      "last_updated": "2026-06-18T09:58:22.457Z"
     },
     {
       "project": "tictacglow",
