@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-18T10:23:47.323Z",
+  "generated_at": "2026-06-18T10:43:59.592Z",
   "quota": {
     "runs_used": 0,
     "quota_limit": 15,
@@ -22,28 +22,28 @@
     {
       "project": "testapp",
       "app_type": "web",
-      "status": "halted",
+      "status": "completed",
+      "locked": false,
+      "locked_by": null,
+      "completed": true,
+      "next_milestone": "M1",
+      "milestones_done": 0,
+      "has_error": true,
+      "last_error": "Pipeline test fixture; not a real build target. Marked completed by Cowork cleanup so the dispatcher never selects it (it had been left dispatchable and caused a duplicate routine session).",
+      "last_updated": "2026-06-18T10:43:44Z"
+    },
+    {
+      "project": "tictacglow",
+      "app_type": "android",
+      "status": "needs_human",
       "locked": false,
       "locked_by": null,
       "completed": false,
       "next_milestone": "M1",
       "milestones_done": 0,
       "has_error": true,
-      "last_error": "dispatch failed: TypeError: Failed to parse URL from [url]",
-      "last_updated": "2026-06-18T10:20:53.196Z"
-    },
-    {
-      "project": "tictacglow",
-      "app_type": "android",
-      "status": "pending",
-      "locked": false,
-      "locked_by": null,
-      "completed": false,
-      "next_milestone": "M1",
-      "milestones_done": 0,
-      "has_error": false,
-      "last_error": null,
-      "last_updated": null
+      "last_error": "BLOCKED ON SCOPE, not on build readiness. The routine session is scoped to agents-handshake + dexdevs-agent only and CANNOT read/write the existing app repo ranafaraz/dexdevs-tictacglow (GitHub MCP 'a",
+      "last_updated": "2026-06-18T10:43:44Z"
     }
   ]
 }
